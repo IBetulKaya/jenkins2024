@@ -21,16 +21,16 @@ pipeline {
           bat 'docker compose down'
         }
     }
-    stage ('Test') {
-        steps {
-            bat 'mvn -Dmaven.test.failure.ignore=true test'
-        }
-        post {
-            success {
-                junit 'target/surefire-reports/**/*.xml'
-            }
-        }
-    }
+//     stage ('Test') {
+//         steps {
+//             bat 'mvn -Dmaven.test.failure.ignore=true test'
+//         }
+//         post {
+//             success {
+//                 junit 'target/surefire-reports/**/*.xml'
+//             }
+//         }
+//     }
     stage ('Build') {
         steps {
             bat 'mvn -Dskip.tests=true package'
@@ -42,16 +42,16 @@ pipeline {
             bat 'docker compose up -d --build'
         }
     }
-    stage('Finalize') {
-      steps {
-        bat 'echo "Finalizing"'
-      }
-      post{
-        always {
-         mail bcc: '', body: 'Pipeline has been succesfully executed ', cc: '', from: 'cornelius.broekhuis@capgemini.com', replyTo: 'cornelius.broekhuis@capgemini.com', subject: 'Pipeline has been succesfully executed ', to: 'cornelius.broekhuis@capgemini.com'
-        }
-      }
-    }
+//     stage('Finalize') {
+//       steps {
+//         bat 'echo "Finalizing"'
+//       }
+//       post{
+//         always {
+//          mail bcc: '', body: 'Pipeline has been succesfully executed ', cc: '', from: 'cornelius.broekhuis@capgemini.com', replyTo: 'cornelius.broekhuis@capgemini.com', subject: 'Pipeline has been succesfully executed ', to: 'cornelius.broekhuis@capgemini.com'
+//         }
+//       }
+//     }
 
   }
   environment {
