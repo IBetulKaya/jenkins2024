@@ -8,5 +8,4 @@ COPY target/app.jar /app.jar
 COPY src/main/resources/application.properties /application.properties
 
 # Start application
-ENTRYPOINT
-["java","-jar","/app/jar"]
+ENTRYPOINT ["java","-jar","/app.jar"]
