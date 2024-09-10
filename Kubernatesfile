@@ -16,12 +16,26 @@ pipeline {
             echo "${env.GIT_BRANCH}"
         }
     }
- //   stage ('Stop Containers') {
-//        steps {
-//          bat 'kubectl delete -f service.yml'
-//          bat 'kubectl delete -f deployment.yml'
-  //      }
-   // }
+   stage ('Stop Pods') {
+           steps {
+              script {
+                          try {
+                            bat 'kubectl delete -f service.yml'
+                          } catch (Exception e) {
+                             echo "No service..."
+                          }
+                          try {
+                            bat 'kubectl delete -f deployment.yml'
+                          } catch (Exception e) {
+                             echo "No pods running..."
+                          }
+                        }
+
+
+         bat 'kubectl delete -f service.yml'
+        bat 'kubectl delete -f deployment.yml'
+       }
+   }
     stage ('Test') {
          steps {
              bat 'mvn -Dmaven.test.failure.ignore=true test'
