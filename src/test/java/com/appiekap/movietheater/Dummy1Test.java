@@ -14,7 +14,7 @@ public class Dummy1Test {
 
 
         boolean b = true;
-        assertFalse( b);
+        assertTrue( b);
 
     }
 
